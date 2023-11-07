@@ -5,20 +5,22 @@ from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-# Create your views here.
-
+import requests
 
 def home(request):
     return render(request, 'index.html')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('dash')
+
     if request.method == 'GET':
         return render(request, 'signup.html', {
             'form': UserCreationForm
         })
     else:
         if request.POST['password1'] == request.POST['password2']:
-            try:
+            try: 
                 user = User.objects.create_user(
                     username=request.POST['username'],
                     password=request.POST['password1'])
@@ -44,6 +46,9 @@ def salir(request):
     return redirect('login')
 
 def entrar(request):
+    if request.user.is_authenticated:
+        return redirect('dash')
+    
     if request.method == "GET":
         return render(request, 'login.html', {
             'form': AuthenticationForm
@@ -59,3 +64,15 @@ def entrar(request):
         else:
             login(request, user)
             return redirect('dash')
+
+
+def verDatos(request):
+    response = requests.get('https://test-gliv.onrender.com/verDatos')
+
+    if response.status_code == 200:
+        data = response.json()
+        # Pasa los datos a la plantilla
+        return render(request, 'tu_plantilla.html', {'trade_alerts': [data]})
+    else:
+        # En caso de error al obtener datos
+        return render(request, 'tu_plantilla.html', {'error': 'Error al obtener datos'})
