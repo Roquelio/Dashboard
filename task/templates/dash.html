@@ -11,6 +11,9 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href='{% static "css/styles.css" %}' rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href"https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+        
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -203,7 +206,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
+                                <div class="card bg-info text-white mb-4">
                                     <div class="card-body">Orionx</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <p class="small text-white stretched-link" id="data_orion">Loading data...</p>
@@ -229,6 +232,36 @@
                                                     })
                                             }, 200000)
                                         </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">OTC Data</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <p class="small text-white stretched-link" id="data_orion">Fuera del horario permitido.</p>
+                                        {% comment %} <script>
+                                            const DataOrion = fetch('https://test-gliv.onrender.com/getDataOrion')
+                                                .then(response => response.json())
+                                                .then(response => {
+                                                    document.querySelector('#data_orion').innerHTML = `
+                                                        ${response.message.ppc} <br />
+                                                        ${response.message.ppv}
+                                                    `
+                                                })
+
+
+                                            setInterval(async () => {
+                                                const data = await fetch('https://test-gliv.onrender.com/getDataOrion')
+                                                    .then(response => response.json())
+                                                    .then(response => {
+                                                        document.querySelector('#data_orion').innerHTML = `
+                                                            ${response.message.ppc} <br />
+                                                            ${response.message.ppv}
+                                                        `
+                                                    })
+                                            }, 200000)
+                                        </script> {% endcomment %}
                                     </div>
                                 </div>
                             </div>
@@ -259,40 +292,73 @@
                                 DataTable Example
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatable_data" class="table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tipo de Alerta</th>
-                                            <th>Cantidad</th>
-                                            <th>Diferencia</th>
-                                            <th>Información de Compra</th>
-                                            <th>Precio de Compra</th>
-                                            <th>Arbitraje</th>
-                                            <th>Información de Venta</th>
-                                            <th>Precio de Venta</th>
-                                            <th>Merchant</th>
-                                            <th>Fecha y Hora</th>  <!-- Nueva columna para la fecha y hora -->
+                                            <th class="centered">ID</th>
+                                            <th class="centered">Tipo de Alerta</th>
+                                            <th class="centered">Cantidad</th>
+                                            <th class="centered">Diferencia</th>
+                                            <th class="centered">Información de Compra</th>
+                                            <th class="centered">Precio de Compra</th>
+                                            <th class="centered">Arbitraje</th>
+                                            <th class="centered">Información de Venta</th>
+                                            <th class="centered">Precio de Venta</th>
+                                            <th class="centered">Merchant</th>
+                                            <th class="centered">Fecha y Hora</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {% for trade_alert in trade_alerts %}
-                                        <tr>
-                                            <td>{{ trade_alert.id }}</td>
-                                            <td>{{ trade_alert.alert_type }}</td>
-                                            <td>{{ trade_alert.amount }}</td>
-                                            <td>{{ trade_alert.difference }}</td>
-                                            <td>{{ trade_alert.buy_info }}</td>
-                                            <td>{{ trade_alert.price_buy }}</td>
-                                            <td>{{ trade_alert.arbitrage }}</td>
-                                            <td>{{ trade_alert.sell_info }}</td>
-                                            <td>{{ trade_alert.price_sell }}</td>
-                                            <td>{{ trade_alert.merchant }}</td>
-                                            <td>{{ trade_alert.created_at|date:"Y-m-d H:i:s" }}</td>
-                                        </tr>
-                                        {% endfor %}
+                                    <tbody id="tablaBody_data">
                                     </tbody>
                                 </table>
+                                    <script>
+                                        let dataTable;
+                                        let init = false
+
+                                        const initDataTable = async() => {
+                                            if(init){
+                                                dataTable.destroy();
+                                            }
+                                            await listData();
+                                            dataTable=$('#datatable_data').DataTable({});
+                                            init = true
+                                        };
+                                        const listData = async () => {
+                                            try {
+                                                const response = await fetch("https://test-gliv.onrender.com/verDatos");
+                                                const data = await response.json();
+                                                let content = ``;
+                                        
+                                                data.forEach((trade_alert, index) => {
+                                                    content += `
+                                                        <tr>
+                                                            <td>${trade_alert.ID}</td>
+                                                            <td>${trade_alert["Tipo de Alerta"]}</td>
+                                                            <td>${trade_alert.Cantidad}</td>
+                                                            <td>${trade_alert.Diferencia}</td>
+                                                            <td>${trade_alert["Información de Compra"]}</td>
+                                                            <td>${trade_alert["Precio de Compra"]}</td>
+                                                            <td>${trade_alert.Arbitraje}</td>
+                                                            <td>${trade_alert["Información de Venta"]}</td>
+                                                            <td>${trade_alert["Precio de Venta"]}</td>
+                                                            <td>${trade_alert.Merchant}</td>
+                                                            <td>${trade_alert["Fecha de Creación"]}</td>
+                                                        </tr>
+                                                    `;
+                                                });
+                                        
+                                                // Asumiendo que tablaBody_data es la referencia a tu tbody
+                                                const tablaBody_data = document.getElementById("tablaBody_data");
+                                                tablaBody_data.innerHTML = content;
+                                            } catch (ex) {
+                                                alert(ex);
+                                            }
+                                        };
+                                        
+                                        window.addEventListener('load', async () => {
+                                            await initDataTable();
+                                        });
+                                    </script>                             
                             </div>
                         </div>
                     </div>
@@ -313,5 +379,10 @@
         <script src='{% static "assets/demo/chart-bar-demo.js" %}'></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src='{% static "js/datatables-simple-demo.js" %}'></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
+        <script src='https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js'></script>
+        <script src='https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </body>
 </html>

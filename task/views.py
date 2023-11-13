@@ -64,15 +64,3 @@ def entrar(request):
         else:
             login(request, user)
             return redirect('dash')
-
-
-def verDatos(request):
-    response = requests.get('https://test-gliv.onrender.com/verDatos')
-
-    if response.status_code == 200:
-        data = response.json()
-        # Pasa los datos a la plantilla
-        return render(request, 'tu_plantilla.html', {'trade_alerts': [data]})
-    else:
-        # En caso de error al obtener datos
-        return render(request, 'tu_plantilla.html', {'error': 'Error al obtener datos'})
