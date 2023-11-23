@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 import requests
+from django.http import JsonResponse
+import json
 
 def home(request):
     return render(request, 'index.html')
