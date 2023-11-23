@@ -81,14 +81,10 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'data_dash',  # Nombre de la base de datos
-        'USER': 'data_dash_user',  # Usuario de la base de datos
-        'PASSWORD': 'GDL1NLAnzQibqHRO8iAUkMdafMZiU8pW',  # Contraseña de la base de datos
-        'HOST': 'dpg-clfr3cnjc5ks73e9tgm0-a',  # Dirección del host de la base de datos
-        'PORT': '5432',  # Puerto de la base de datos
-    }
+    'default': dj_database_url.config(
+        default='postgres://data_dash_user:GDL1NLAnzQibqHRO8iAUkMdafMZiU8pW@dpg-clfr3cnjc5ks73e9tgm0-a.oregon-postgres.render.com/data_dash',
+        conn_max_age=600,  # Ajusta según tus necesidades
+    )
 }
 
 
