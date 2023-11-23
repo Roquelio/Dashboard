@@ -81,8 +81,12 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'data_dash',  # Nombre de la base de datos
+        'USER': 'data_dash_user',  # Usuario de la base de datos
+        'PASSWORD': 'GDL1NLAnzQibqHRO8iAUkMdafMZiU8pW',  # Contraseña de la base de datos
+        'HOST': 'dpg-clfr3cnjc5ks73e9tgm0-a',  # Dirección del host de la base de datos
+        'PORT': '5432',  # Puerto de la base de datos
     }
 }
 
