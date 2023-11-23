@@ -30,7 +30,7 @@ DEBUG = 'RENDER' not in os.environ
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['dashboard-tmku.onrender.com', 'localhost']
-
+ 
 
 # Application definition
 
