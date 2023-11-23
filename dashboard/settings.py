@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'data_dash',  # Nombre de la base de datos
         'USER': 'data_dash_user',  # Usuario de la base de datos
         'PASSWORD': 'GDL1NLAnzQibqHRO8iAUkMdafMZiU8pW',  # Contraseña de la base de datos
