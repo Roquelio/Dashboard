@@ -12,9 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-# Don't forget to import dj-database-url at the beginning of the file
 import dj_database_url
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i028ej#%j(t9ojukl&mn7qxjroa1ef9%ro)b^oncw507t@(v*7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = True
 
 ALLOWED_HOSTS = ['dashboard-tmku.onrender.com', 'localhost']
+
 
 
 
@@ -82,7 +81,7 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/mysite',conn_max_age=600    )}
+        default='postgresql://postgres:postgres@localhost/postgres', conn_max_age=600    )}
 
 
 # Password validation
