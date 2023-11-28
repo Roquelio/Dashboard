@@ -6,6 +6,33 @@ let iniciovitappc = [];
 let iniciovitappv = [];
 let inicioorionppc = [];
 let iniciorionppv = [];
+let iniciootcppc = [];
+let iniciobinanceppc = [];
+let inicibinanceppv = [];
+
+function extractCurrencyPair(message) {
+    const regex = /\[([^\]]+)\]/;
+    const matches = regex.exec(message);
+    return matches && matches[1] ? matches[1] : 'N/A';
+}
+
+function getSourceName(value, ...prices) {
+    const index = prices.indexOf(value);
+    const exchanges = ['Cryptomarket', 'Buda', 'Vita', 'Orion', 'Binance'];
+    const exchangeName = exchanges[index] || 'N/A';
+    const currencyPair = extractCurrencyPair(value);
+    
+    return { exchange: exchangeName, currencyPair: currencyPair };
+}
+
+
+function getPriceValues(data) {
+    return {
+        ppc: parseFloat(data.message.ppc.split(":")[1].trim()),
+        ppv: parseFloat(data.message.ppv.split(":")[1].trim())
+    };
+}
+
 
 async function fetchDataAndDisplay() {
     try {
@@ -29,10 +56,68 @@ async function fetchDataAndDisplay() {
         const dataOrion = await dataOrionResponse.json();
         document.querySelector("#data_orion").innerHTML = `${dataOrion.message.ppc} <br /> ${dataOrion.message.ppv}`;
 
+        // OTC
+        const dataOtcResponse = await fetch("https://test-gliv.onrender.com/getDataOtc");
+        const dataOtc = await dataOtcResponse.json();
+
+        const dataOtcElement = document.querySelector("#data_otc");
+
+        if ("message" in dataOtc) {
+            const messageType = typeof dataOtc.message;
+
+            if (messageType === "string") {
+                // Si el mensaje es una cadena, asumimos que es un mensaje de error
+                dataOtcElement.innerHTML = dataOtc.message;
+            } else if (messageType === "object") {
+                // Si el mensaje es un objeto, asumimos que es un mensaje exitoso
+                dataOtcElement.innerHTML = `
+                    Precio en Buda OTC: ${dataOtc.message["Buda OTC"] || 'N/A'} <br />
+                    Precio en Orion OTC: ${dataOtc.message["Orion OTC"] || 'N/A'} <br />
+                    Precio en Kundai OTC: ${dataOtc.message["Kundai OTC"] || 'N/A'}
+                `;
+            }
+        } else {
+            // Si no hay mensaje en la respuesta, mostrar un mensaje de error genérico
+            dataOtcElement.innerHTML = "Error: No se pudo obtener la respuesta del servidor.";
+        }
+
+        // Binance
+        const dataBinanceResponse = await fetch("https://test-gliv.onrender.com/getDataBinance");
+        const dataBinance = await dataBinanceResponse.json();
+        document.querySelector("#data_binance").innerHTML = `${dataBinance.message.ppc} <br /> ${dataBinance.message.ppv}`;
+
+        //Mejor Precio
+        const cmPrices = getPriceValues(dataCm);
+        const budaPrices = getPriceValues(dataBuda);
+        const vitaPrices = getPriceValues(dataVita);
+        const orionPrices = getPriceValues(dataOrion);
+        const binancePrices = getPriceValues(dataBinance);
+        const cmPrice = cmPrices.ppc;
+        const budaPrice = budaPrices.ppc;
+        const vitaPrice = vitaPrices.ppc;
+        const orionPrice = orionPrices.ppc;
+        const binancePrice = binancePrices.ppc;
+        const cmPriceV = cmPrices.ppv;
+        const budaPriceV = budaPrices.ppv;
+        const vitaPriceV = vitaPrices.ppv;
+        const orionPriceV = orionPrices.ppv;
+        const binancePriceV = binancePrices.ppv;
+
+        const minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice);
+        const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
+
+        const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice);
+        const sourceMaxPrice = getSourceName(maxPrice, cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
+
+        document.getElementById("best_price").innerHTML = `
+        El mejor precio de compra es ${minPrice} de ${sourceMinPrice.exchange}. <br>
+        El mejor precio de venta es ${maxPrice} de ${sourceMaxPrice.exchange}.
+    `;
+
         var ctx = document.getElementById("nelson_grafico").getContext("2d");
         var myAreaChart;
 
-        function createChart(dataCm, dataBuda, dataVita, dataOrion) {
+        function createChart(dataCm, dataBuda, dataVita, dataOrion, dataBinance) {
             if (myAreaChart) {
                 myAreaChart.destroy();
             }
@@ -66,6 +151,9 @@ async function fetchDataAndDisplay() {
 
             inicioorionppc.push(extractValue(dataOrion.message.ppc));
             iniciorionppv.push(extractValue(dataOrion.message.ppv));
+
+            iniciobinanceppc.push(extractValue(dataBinance.message.ppc));
+            inicibinanceppv.push(extractValue(dataBinance.message.ppv));
 
             myAreaChart = new Chart(ctx, {
                 type: "line",
@@ -136,6 +224,22 @@ async function fetchDataAndDisplay() {
                             pointBackgroundColor: "red", // Puntos rojos para PPV
                             tension: 0.1,
                         },
+                        {
+                            label: "Binance PPC",
+                            data: iniciobinanceppc,
+                            fill: false,
+                            borderColor: "yellow", // Azul claro para PPV
+                            pointBackgroundColor: "green", // Puntos rojos para PPV
+                            tension: 0.1,
+                        },
+                        {
+                            label: "Binance PPV",
+                            data: inicibinanceppv,
+                            fill: false,
+                            borderColor: "yellow", // Azul claro para PPV
+                            pointBackgroundColor: "red", // Puntos rojos para PPV
+                            tension: 0.1,
+                        },
                     ],
                 },
                 options: {
@@ -149,14 +253,14 @@ async function fetchDataAndDisplay() {
                                 },
                             },
                         },
-                    },
+                    },    
                 },
             });
         }
 
-        function updateChart(dataCm, dataBuda, dataVita, dataOrion) {
-            myAreaChart.data.datasets[0].data = [extractValue(dataCm.message.ppc), extractValue(dataBuda.message.ppc), extractValue(dataVita.message.ppc), extractValue(dataOrion.message.ppc)];
-            myAreaChart.data.datasets[1].data = [extractValue(dataCm.message.ppv), extractValue(dataBuda.message.ppv), extractValue(dataVita.message.ppv), extractValue(dataOrion.message.ppv)];
+        function updateChart(dataCm, dataBuda, dataVita, dataOrion, dataBinance) {
+            myAreaChart.data.datasets[0].data = [extractValue(dataCm.message.ppc), extractValue(dataBuda.message.ppc), extractValue(dataVita.message.ppc), extractValue(dataOrion.message.ppc), extractValue(dataBinance.message.ppc)];
+            myAreaChart.data.datasets[1].data = [extractValue(dataCm.message.ppv), extractValue(dataBuda.message.ppv), extractValue(dataVita.message.ppv), extractValue(dataOrion.message.ppv), extractValue(dataBinance.message.ppv)];
             myAreaChart.update();
         }
 
@@ -165,10 +269,10 @@ async function fetchDataAndDisplay() {
             return match ? parseFloat(match[0]) : NaN;
         }
 
-        createChart(dataCm, dataBuda, dataVita, dataOrion);
+        createChart(dataCm, dataBuda, dataVita, dataOrion, dataBinance);
 
         setInterval(async function () {
-            updateChart(dataCm, dataBuda, dataVita, dataOrion);
+            updateChart(dataCm, dataBuda, dataVita, dataOrion, dataBinance);
             try {
                 // Actualizar datos de Buda, Vita y Orion
             } catch (error) {

@@ -46,7 +46,7 @@ def dash(request):
 def salir(request):
     logout(request)
     return redirect('login')
-
+ 
 def entrar(request):
     if request.user.is_authenticated:
         return redirect('dash')
