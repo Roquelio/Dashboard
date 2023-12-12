@@ -18,7 +18,7 @@ function extractCurrencyPair(message) {
 
 function getSourceName(value, ...prices) {
     const index = prices.indexOf(value);
-    const exchanges = ['Cryptomarket', 'Buda', 'Vita', 'Orion', 'Binance'];
+    const exchanges = ['Cryptomarket', 'Buda', 'Vita', 'Orion', 'Binance', 'Buda OTC', 'Kundai OTC', 'Orion OTC'];
     const exchangeName = exchanges[index] || 'N/A';
     const currencyPair = extractCurrencyPair(value);
     
@@ -61,6 +61,7 @@ async function fetchDataAndDisplay() {
         const dataOtc = await dataOtcResponse.json();
 
         const dataOtcElement = document.querySelector("#data_otc");
+        let budaOTCPrice, orionOTCPrice, kundaiOTCPrice;
 
         if ("message" in dataOtc) {
             const messageType = typeof dataOtc.message;
@@ -69,11 +70,14 @@ async function fetchDataAndDisplay() {
                 // Si el mensaje es una cadena, asumimos que es un mensaje de error
                 dataOtcElement.innerHTML = dataOtc.message;
             } else if (messageType === "object") {
+                budaOTCPrice = dataOtc.message["Buda OTC"] || null;
+                orionOTCPrice = dataOtc.message["Orion OTC"] || null;
+                kundaiOTCPrice = dataOtc.message["Kundai OTC"] || null;
                 // Si el mensaje es un objeto, asumimos que es un mensaje exitoso
                 dataOtcElement.innerHTML = `
-                    Precio en Buda OTC: ${dataOtc.message["Buda OTC"] || 'N/A'} <br />
-                    Precio en Orion OTC: ${dataOtc.message["Orion OTC"] || 'N/A'} <br />
-                    Precio en Kundai OTC: ${dataOtc.message["Kundai OTC"] || 'N/A'}
+                    Precio en Buda OTC: ${budaOTCPrice || 'N/A'} <br />
+                    Precio en Orion OTC: ${orionOTCPrice || 'N/A'} <br />
+                    Precio en Kundai OTC: ${kundaiOTCPrice || 'N/A'}
                 `;
             }
         } else {
@@ -103,10 +107,10 @@ async function fetchDataAndDisplay() {
         const orionPriceV = orionPrices.ppv;
         const binancePriceV = binancePrices.ppv;
 
-        const minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice);
+        const minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice,budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
         const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
-        const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice);
+        const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
         const sourceMaxPrice = getSourceName(maxPrice, cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
         document.getElementById("best_price").innerHTML = `
