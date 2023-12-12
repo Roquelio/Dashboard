@@ -75,9 +75,9 @@ async function fetchDataAndDisplay() {
                 kundaiOTCPrice = dataOtc.message["Kundai OTC"] || null;
                 // Si el mensaje es un objeto, asumimos que es un mensaje exitoso
                 dataOtcElement.innerHTML = `
-                    Precio en Buda OTC: ${budaOTCPrice || 'N/A'} <br />
-                    Precio en Orion OTC: ${orionOTCPrice || 'N/A'} <br />
-                    Precio en Kundai OTC: ${kundaiOTCPrice || 'N/A'}
+                    Buda OTC: ${budaOTCPrice || 'N/A'} <br />
+                    Orion OTC: ${orionOTCPrice || 'N/A'} <br />
+                    Kundai OTC: ${kundaiOTCPrice || 'N/A'}
                 `;
             }
         } else {
