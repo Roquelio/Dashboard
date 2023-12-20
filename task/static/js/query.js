@@ -27,8 +27,6 @@ function getSourceName(value, ...prices) {
 
 
 
-
-
 function getPriceValues(data) {
     return {
         ppc: parseFloat(data.message.ppc.split(":")[1].trim()),
@@ -115,8 +113,8 @@ async function fetchDataAndDisplay() {
         const minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, minOTCPrice);
         const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
-        const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
-        const sourceMaxPrice = getSourceName(maxPrice, cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
+        const sourceMinPrice = getSourceName(minPrice);
+        const sourceMaxPrice = getSourceName(maxPrice);
 
         document.getElementById("best_price").innerHTML = `
         El mejor precio de compra es ${minPrice} de ${sourceMinPrice.exchange}. <br>
