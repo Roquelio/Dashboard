@@ -17,13 +17,15 @@ function extractCurrencyPair(message) {
 }
 
 function getSourceName(value, ...prices) {
-    const index = prices.findIndex(price => price === value);
+    const index = prices.indexOf(value);
     const exchanges = ['Cryptomarket', 'Buda', 'Vita', 'Orion', 'Binance', 'Buda OTC', 'Kundai OTC', 'Orion OTC'];
     const exchangeName = exchanges[index] || 'N/A';
     const currencyPair = extractCurrencyPair(value);
     
     return { exchange: exchangeName, currencyPair: currencyPair };
 }
+
+
 
 
 
