@@ -70,9 +70,9 @@ async function fetchDataAndDisplay() {
                 // Si el mensaje es una cadena, asumimos que es un mensaje de error
                 dataOtcElement.innerHTML = dataOtc.message;
             } else if (messageType === "object") {
-                budaOTCPrice = dataOtc.message["Buda OTC"] || null;
-                orionOTCPrice = dataOtc.message["Orion OTC"] || null;
-                kundaiOTCPrice = dataOtc.message["Kundai OTC"] || null;
+                budaOTCPrice = dataOtc.message["Buda OTC"] ?? null;
+                orionOTCPrice = dataOtc.message["Orion OTC"] ?? null;
+                kundaiOTCPrice = dataOtc.message["Kundai OTC"] ?? null;                                                             
                 // Si el mensaje es un objeto, asumimos que es un mensaje exitoso
                 dataOtcElement.innerHTML = `
                     Buda OTC: ${budaOTCPrice || 'N/A'} <br />
@@ -107,7 +107,9 @@ async function fetchDataAndDisplay() {
         const orionPriceV = orionPrices.ppv;
         const binancePriceV = binancePrices.ppv;
 
-        const minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice,budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
+        const nonNullOTCPrices = [budaOTCPrice, orionOTCPrice, kundaiOTCPrice].filter(price => price !== null);
+        const minOTCPrice = nonNullOTCPrices.length > 0 ? Math.min(...nonNullOTCPrices) : null;
+        const minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, minOTCPrice);
         const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
         const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
