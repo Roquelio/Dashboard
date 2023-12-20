@@ -17,13 +17,14 @@ function extractCurrencyPair(message) {
 }
 
 function getSourceName(value, ...prices) {
-    const index = prices.indexOf(value);
+    const index = prices.findIndex(price => price === value);
     const exchanges = ['Cryptomarket', 'Buda', 'Vita', 'Orion', 'Binance', 'Buda OTC', 'Kundai OTC', 'Orion OTC'];
     const exchangeName = exchanges[index] || 'N/A';
     const currencyPair = extractCurrencyPair(value);
     
     return { exchange: exchangeName, currencyPair: currencyPair };
 }
+
 
 
 
@@ -113,8 +114,8 @@ async function fetchDataAndDisplay() {
         const minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, minOTCPrice);
         const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
-        const sourceMinPrice = getSourceName(minPrice);
-        const sourceMaxPrice = getSourceName(maxPrice);
+        const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
+        const sourceMaxPrice = getSourceName(maxPrice, cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
         document.getElementById("best_price").innerHTML = `
         El mejor precio de compra es ${minPrice} de ${sourceMinPrice.exchange}. <br>
