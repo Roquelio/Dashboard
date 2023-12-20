@@ -109,9 +109,17 @@ async function fetchDataAndDisplay() {
         const orionPriceV = orionPrices.ppv;
         const binancePriceV = binancePrices.ppv;
 
-        const nonNullOTCPrices = [budaOTCPrice, orionOTCPrice, kundaiOTCPrice].filter(price => price !== null);
-        const minOTCPrice = nonNullOTCPrices.length > 0 ? Math.min(...nonNullOTCPrices) : null;
-        const minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, minOTCPrice);
+        const currentChileTime = new Date().toLocaleString("en-US", { timeZone: "America/Santiago" });
+        const currentHour = new Date(currentChileTime).getHours();
+        let minPrice;
+
+        if (currentHour > 9 && currentHour < 14) {
+            minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
+        } else {
+            minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice);
+        }
+
+
         const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
         const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);

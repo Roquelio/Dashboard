@@ -43,6 +43,10 @@ def signup(request):
 def dash(request):
     return render(request, 'dash.html')
 
+@login_required(login_url='/login')
+def tables_view(request):
+    return render(request, 'tables.html')
+
 def salir(request):
     logout(request)
     return redirect('login')
