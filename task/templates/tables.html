@@ -632,6 +632,454 @@
                                 });
                             </script>
                         </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2>FDUSD</h2>
+                                <table class="table table-striped" id="FDUSD_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Usuario</th>
+                                            <th>Precio</th>
+                                            <th>Disponible</th>
+                                            <th>Minimo</th>
+                                            <th>Maximo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaBody_data_fdusd">
+                                        <!-- La carga de datos se realiza después de obtenerlos de la ruta -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
+                            <script>
+                                let dataTable6;
+                                let init6 = false;
+                            
+                                // Función para inicializar DataTables con el idioma español
+                                const initDataTable6 = async () => {
+                                    if (init6) {
+                                        // Destruir DataTable si ya está inicializado
+                                        dataTable6.destroy();
+                                    }
+                            
+                                    // Obtener y mostrar datos
+                                    await listData6();
+                            
+                                    // Inicializar DataTable con lengthMenu configurado
+                                    dataTable6 = $('#FDUSD_table').DataTable({
+                                        "language": {
+                                            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                                        },
+                                        "lengthMenu": [5, 10, 15, 20], // Establecer el número mínimo de visualización de filas a 5
+                                    });
+                            
+                                    dataTable6.draw();
+                            
+                                    // Marcar que la inicialización se ha completado
+                                    init6 = true;
+                                };
+                            
+                                // Función para obtener datos
+                                const listData6 = async () => {
+                                    try {
+                                        // Obtener datos de la API
+                                        const response = await fetch("https://test-gliv.onrender.com/getScrapFdusd");
+                                        const data = await response.json();
+                            
+                                        let content = '';
+                            
+                                        // Iterar sobre los datos y construir filas de la tabla
+                                        data?.buy?.forEach((ad) => {
+                                            // Obtener el color según el tipo de transacción
+                                            const color = ad.TradeType === 'buy' ? 'red' : 'green';
+                            
+                                            // Construir la fila de la tabla con el color correspondiente
+                                            content += `
+                                                <tr>
+                                                    <td style="color: ${color};">${ad.TradeType}</td>
+                                                    <td>${ad.NickName}</td>
+                                                    <td>${ad.Price}</td>
+                                                    <td>${ad.TradableQuantity}</td>
+                                                    <td>${ad.minSingleTransAmount}</td>
+                                                    <td>${ad.dynamicMaxSingleTransAmount}</td>
+                                                </tr>`;
+                                        });
+                            
+                                        data?.sell?.forEach((ad) => {
+                                            // Obtener el color según el tipo de transacción
+                                            const color = ad.TradeType === 'sell' ? 'green' : 'red';
+                            
+                                            // Construir la fila de la tabla con el color correspondiente
+                                            content += `
+                                                <tr>
+                                                    <td style="color: ${color};">${ad.TradeType}</td>
+                                                    <td>${ad.NickName}</td>
+                                                    <td>${ad.Price}</td>
+                                                    <td>${ad.TradableQuantity}</td>
+                                                    <td>${ad.minSingleTransAmount}</td>
+                                                    <td>${ad.dynamicMaxSingleTransAmount}</td>
+                                                </tr>`;
+                                        });
+                            
+                                        // Insertar filas en el cuerpo de la tabla
+                                        const tablaBody_data_fdusd = $("#tablaBody_data_fdusd");
+                                        tablaBody_data_fdusd.html(content);
+                                    } catch (ex) {
+                                        // Manejar errores
+                                        console.error(ex);
+                                    }
+                                };
+                            
+                                // Evento de carga de la ventana, inicia DataTables
+                                window.addEventListener('load', async () => {
+                                    await initDataTable6();
+                            
+                                    // Actualizar cada 5 segundos
+                                    setInterval(async () => {
+                                        await listData6();
+                                        dataTable6.clear().rows.add($("#tablaBody_data_fdusd tr")).draw();
+                                    }, 10000);
+                                });
+                            </script>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2>DOGUE</h2>
+                                <table class="table table-striped" id="DOGUE_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Usuario</th>
+                                            <th>Precio</th>
+                                            <th>Disponible</th>
+                                            <th>Minimo</th>
+                                            <th>Maximo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaBody_data_dogue">
+                                        <!-- La carga de datos se realiza después de obtenerlos de la ruta -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
+                            <script>
+                                let dataTable7;
+                                let init7 = false;
+                            
+                                // Función para inicializar DataTables con el idioma español
+                                const initDataTable7 = async () => {
+                                    if (init7) {
+                                        // Destruir DataTable si ya está inicializado
+                                        dataTable7.destroy();
+                                    }
+                            
+                                    // Obtener y mostrar datos
+                                    await listData7();
+                            
+                                    // Inicializar DataTable con lengthMenu configurado
+                                    dataTable7 = $('#DOGUE_table').DataTable({
+                                        "language": {
+                                            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                                        },
+                                        "lengthMenu": [5, 10, 15, 20], // Establecer el número mínimo de visualización de filas a 5
+                                    });
+                            
+                                    dataTable7.draw();
+                            
+                                    // Marcar que la inicialización se ha completado
+                                    init7 = true;
+                                };
+                            
+                                // Función para obtener datos
+                                const listData7 = async () => {
+                                    try {
+                                        // Obtener datos de la API
+                                        const response = await fetch("https://test-gliv.onrender.com/getScrapDogue");
+                                        const data = await response.json();
+                            
+                                        let content = '';
+                            
+                                        // Iterar sobre los datos y construir filas de la tabla
+                                        data?.buy?.forEach((ad) => {
+                                            // Obtener el color según el tipo de transacción
+                                            const color = ad.TradeType === 'buy' ? 'red' : 'green';
+                            
+                                            // Construir la fila de la tabla con el color correspondiente
+                                            content += `
+                                                <tr>
+                                                    <td style="color: ${color};">${ad.TradeType}</td>
+                                                    <td>${ad.NickName}</td>
+                                                    <td>${ad.Price}</td>
+                                                    <td>${ad.TradableQuantity}</td>
+                                                    <td>${ad.minSingleTransAmount}</td>
+                                                    <td>${ad.dynamicMaxSingleTransAmount}</td>
+                                                </tr>`;
+                                        });
+                            
+                                        data?.sell?.forEach((ad) => {
+                                            // Obtener el color según el tipo de transacción
+                                            const color = ad.TradeType === 'sell' ? 'green' : 'red';
+                            
+                                            // Construir la fila de la tabla con el color correspondiente
+                                            content += `
+                                                <tr>
+                                                    <td style="color: ${color};">${ad.TradeType}</td>
+                                                    <td>${ad.NickName}</td>
+                                                    <td>${ad.Price}</td>
+                                                    <td>${ad.TradableQuantity}</td>
+                                                    <td>${ad.minSingleTransAmount}</td>
+                                                    <td>${ad.dynamicMaxSingleTransAmount}</td>
+                                                </tr>`;
+                                        });
+                            
+                                        // Insertar filas en el cuerpo de la tabla
+                                        const tablaBody_data_dogue = $("#tablaBody_data_dogue");
+                                        tablaBody_data_dogue.html(content);
+                                    } catch (ex) {
+                                        // Manejar errores
+                                        console.error(ex);
+                                    }
+                                };
+                            
+                                // Evento de carga de la ventana, inicia DataTables
+                                window.addEventListener('load', async () => {
+                                    await initDataTable7();
+                            
+                                    // Actualizar cada 5 segundos
+                                    setInterval(async () => {
+                                        await listData7();
+                                        dataTable7.clear().rows.add($("#tablaBody_data_dogue tr")).draw();
+                                    }, 10000);
+                                });
+                            </script>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2>ADA</h2>
+                                <table class="table table-striped" id="ADA_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Usuario</th>
+                                            <th>Precio</th>
+                                            <th>Disponible</th>
+                                            <th>Minimo</th>
+                                            <th>Maximo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaBody_data_ada">
+                                        <!-- La carga de datos se realiza después de obtenerlos de la ruta -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
+                            <script>
+                                let dataTable8;
+                                let init8 = false;
+                            
+                                // Función para inicializar DataTables con el idioma español
+                                const initDataTable8 = async () => {
+                                    if (init8) {
+                                        // Destruir DataTable si ya está inicializado
+                                        dataTable8.destroy();
+                                    }
+                            
+                                    // Obtener y mostrar datos
+                                    await listData8();
+                            
+                                    // Inicializar DataTable con lengthMenu configurado
+                                    dataTable8 = $('#ADA_table').DataTable({
+                                        "language": {
+                                            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                                        },
+                                        "lengthMenu": [5, 10, 15, 20], // Establecer el número mínimo de visualización de filas a 5
+                                    });
+                            
+                                    dataTable8.draw();
+                            
+                                    // Marcar que la inicialización se ha completado
+                                    init8 = true;
+                                };
+                            
+                                // Función para obtener datos
+                                const listData8 = async () => {
+                                    try {
+                                        // Obtener datos de la API
+                                        const response = await fetch("https://test-gliv.onrender.com/getScrapAda");
+                                        const data = await response.json();
+                            
+                                        let content = '';
+                            
+                                        // Iterar sobre los datos y construir filas de la tabla
+                                        data?.buy?.forEach((ad) => {
+                                            // Obtener el color según el tipo de transacción
+                                            const color = ad.TradeType === 'buy' ? 'red' : 'green';
+                            
+                                            // Construir la fila de la tabla con el color correspondiente
+                                            content += `
+                                                <tr>
+                                                    <td style="color: ${color};">${ad.TradeType}</td>
+                                                    <td>${ad.NickName}</td>
+                                                    <td>${ad.Price}</td>
+                                                    <td>${ad.TradableQuantity}</td>
+                                                    <td>${ad.minSingleTransAmount}</td>
+                                                    <td>${ad.dynamicMaxSingleTransAmount}</td>
+                                                </tr>`;
+                                        });
+                            
+                                        data?.sell?.forEach((ad) => {
+                                            // Obtener el color según el tipo de transacción
+                                            const color = ad.TradeType === 'sell' ? 'green' : 'red';
+                            
+                                            // Construir la fila de la tabla con el color correspondiente
+                                            content += `
+                                                <tr>
+                                                    <td style="color: ${color};">${ad.TradeType}</td>
+                                                    <td>${ad.NickName}</td>
+                                                    <td>${ad.Price}</td>
+                                                    <td>${ad.TradableQuantity}</td>
+                                                    <td>${ad.minSingleTransAmount}</td>
+                                                    <td>${ad.dynamicMaxSingleTransAmount}</td>
+                                                </tr>`;
+                                        });
+                            
+                                        // Insertar filas en el cuerpo de la tabla
+                                        const tablaBody_data_ada = $("#tablaBody_data_ada");
+                                        tablaBody_data_ada.html(content);
+                                    } catch (ex) {
+                                        // Manejar errores
+                                        console.error(ex);
+                                    }
+                                };
+                            
+                                // Evento de carga de la ventana, inicia DataTables
+                                window.addEventListener('load', async () => {
+                                    await initDataTable8();
+                            
+                                    // Actualizar cada 5 segundos
+                                    setInterval(async () => {
+                                        await listData8();
+                                        dataTable8.clear().rows.add($("#tablaBody_data_ada tr")).draw();
+                                    }, 10000);
+                                });
+                            </script>
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2>XRP</h2>
+                                <table class="table table-striped" id="XRP_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Usuario</th>
+                                            <th>Precio</th>
+                                            <th>Disponible</th>
+                                            <th>Minimo</th>
+                                            <th>Maximo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaBody_data_xrp">
+                                        <!-- La carga de datos se realiza después de obtenerlos de la ruta -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
+                            <script>
+                                let dataTable9;
+                                let init9 = false;
+                            
+                                // Función para inicializar DataTables con el idioma español
+                                const initDataTable9 = async () => {
+                                    if (init9) {
+                                        // Destruir DataTable si ya está inicializado
+                                        dataTable9.destroy();
+                                    }
+                            
+                                    // Obtener y mostrar datos
+                                    await listData9();
+                            
+                                    // Inicializar DataTable con lengthMenu configurado
+                                    dataTable9 = $('#XRP_table').DataTable({
+                                        "language": {
+                                            "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                                        },
+                                        "lengthMenu": [5, 10, 15, 20], // Establecer el número mínimo de visualización de filas a 5
+                                    });
+                            
+                                    dataTable9.draw();
+                            
+                                    // Marcar que la inicialización se ha completado
+                                    init9 = true;
+                                };
+                            
+                                // Función para obtener datos
+                                const listData9 = async () => {
+                                    try {
+                                        // Obtener datos de la API
+                                        const response = await fetch("https://test-gliv.onrender.com/getScrapXrp");
+                                        const data = await response.json();
+                            
+                                        let content = '';
+                            
+                                        // Iterar sobre los datos y construir filas de la tabla
+                                        data?.buy?.forEach((ad) => {
+                                            // Obtener el color según el tipo de transacción
+                                            const color = ad.TradeType === 'buy' ? 'red' : 'green';
+                            
+                                            // Construir la fila de la tabla con el color correspondiente
+                                            content += `
+                                                <tr>
+                                                    <td style="color: ${color};">${ad.TradeType}</td>
+                                                    <td>${ad.NickName}</td>
+                                                    <td>${ad.Price}</td>
+                                                    <td>${ad.TradableQuantity}</td>
+                                                    <td>${ad.minSingleTransAmount}</td>
+                                                    <td>${ad.dynamicMaxSingleTransAmount}</td>
+                                                </tr>`;
+                                        });
+                            
+                                        data?.sell?.forEach((ad) => {
+                                            // Obtener el color según el tipo de transacción
+                                            const color = ad.TradeType === 'sell' ? 'green' : 'red';
+                            
+                                            // Construir la fila de la tabla con el color correspondiente
+                                            content += `
+                                                <tr>
+                                                    <td style="color: ${color};">${ad.TradeType}</td>
+                                                    <td>${ad.NickName}</td>
+                                                    <td>${ad.Price}</td>
+                                                    <td>${ad.TradableQuantity}</td>
+                                                    <td>${ad.minSingleTransAmount}</td>
+                                                    <td>${ad.dynamicMaxSingleTransAmount}</td>
+                                                </tr>`;
+                                        });
+                            
+                                        // Insertar filas en el cuerpo de la tabla
+                                        const tablaBody_data_xrp = $("#tablaBody_data_xrp");
+                                        tablaBody_data_xrp.html(content);
+                                    } catch (ex) {
+                                        // Manejar errores
+                                        console.error(ex);
+                                    }
+                                };
+                            
+                                // Evento de carga de la ventana, inicia DataTables
+                                window.addEventListener('load', async () => {
+                                    await initDataTable9();
+                            
+                                    // Actualizar cada 5 segundos
+                                    setInterval(async () => {
+                                        await listData9();
+                                        dataTable9.clear().rows.add($("#tablaBody_data_xrp tr")).draw();
+                                    }, 10000);
+                                });
+                            </script>
+                        </div>
                                           
                 </main>
             
