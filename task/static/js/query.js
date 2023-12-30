@@ -111,13 +111,17 @@ async function fetchDataAndDisplay() {
 
         const currentChileTime = new Date().toLocaleString("en-US", { timeZone: "America/Santiago" });
         const currentHour = new Date(currentChileTime).getHours();
+        const currentDay = new Date(currentChileTime).getDay();
         let minPrice;
 
-        if (currentHour > 9 && currentHour < 14) {
+        if (currentDay >= 1 && currentDay <= 5 && currentHour > 9 && currentHour < 14) {
+            // El día actual es de lunes a viernes y la hora está entre las 9 y las 14 horas
             minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
         } else {
+            // En caso contrario
             minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice);
         }
+
 
 
         const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
