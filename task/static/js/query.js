@@ -1,14 +1,14 @@
-let inicioCMppc = [];
-let inicioCMppv = [];
-let iniciobudappc = [];
-let iniciobudappv = [];
-let iniciovitappc = [];
-let iniciovitappv = [];
-let inicioorionppc = [];
-let iniciorionppv = [];
-let iniciootcppc = [];
-let iniciobinanceppc = [];
-let inicibinanceppv = [];
+    let inicioCMppc = [];
+    let inicioCMppv = [];
+    let iniciobudappc = [];
+    let iniciobudappv = [];
+    let iniciovitappc = [];
+    let iniciovitappv = [];
+    let inicioorionppc = [];
+    let iniciorionppv = [];
+    let iniciootcppc = [];
+    let iniciobinanceppc = [];
+    let inicibinanceppv = [];
 
 function extractCurrencyPair(message) {
     const regex = /\[([^\]]+)\]/;
