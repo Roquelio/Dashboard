@@ -3,7 +3,7 @@ const listDataUsdt = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapUsdt");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const usdtCell = $(`#usdt-${index + 1}`);
@@ -29,7 +29,7 @@ const listDataBtc = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapBtc");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const btcCell = $(`#btc-${index + 1}`);
@@ -55,7 +55,7 @@ const listDataEth = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapEth");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const ethCell = $(`#eth-${index + 1}`);
@@ -81,7 +81,7 @@ const listDataBnb = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapBnb");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const bnbCell = $(`#bnb-${index + 1}`);
@@ -107,7 +107,7 @@ const listDataDai = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapDai");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const daiCell = $(`#dai-${index + 1}`);
@@ -133,7 +133,7 @@ const listDataFdusd = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapFdusd");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const fdusdCell = $(`#fdusd-${index + 1}`);
@@ -159,7 +159,7 @@ const listDataDoge = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapDogue");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const dogeCell = $(`#doge-${index + 1}`);
@@ -185,7 +185,7 @@ const listDataAda = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapAda");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const adaCell = $(`#ada-${index + 1}`);
@@ -211,7 +211,7 @@ const listDataXrp = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapXrp");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.buy?.forEach((ad, index) => {
             const xrpCell = $(`#xrp-${index + 1}`);
@@ -237,7 +237,7 @@ const listDataSellUsdt = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapUsdt");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const usdtCell = $(`#susdt-${index + 1}`);
@@ -263,7 +263,7 @@ const listDataSellBtc = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapBtc");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const btcCell = $(`#sbtc-${index + 1}`);
@@ -289,7 +289,7 @@ const listDataSellEth = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapEth");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const ethCell = $(`#seth-${index + 1}`);
@@ -315,7 +315,7 @@ const listDataSellBnb = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapBnb");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const bnbCell = $(`#sbnb-${index + 1}`);
@@ -341,7 +341,7 @@ const listDataSellDai = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapDai");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const daiCell = $(`#sdai-${index + 1}`);
@@ -367,7 +367,7 @@ const listDataSellFdusd = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapFdusd");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const fdusdCell = $(`#sfdusd-${index + 1}`);
@@ -393,7 +393,7 @@ const listDataSellDoge = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapDogue");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const dogeCell = $(`#sdoge-${index + 1}`);
@@ -419,7 +419,7 @@ const listDataSellAda = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapAda");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const adaCell = $(`#sada-${index + 1}`);
@@ -445,7 +445,7 @@ const listDataSellXrp = async () => {
         const response = await fetch("https://test-gliv.onrender.com/getScrapXrp");
         const data = await response.json();
 
-        console.log("Datos recibidos:", data);
+        // console.log("Datos recibidos:", data);
 
         data?.sell?.forEach((ad, index) => {
             const xrpCell = $(`#sxrp-${index + 1}`);
@@ -477,7 +477,7 @@ setInterval(async () => {
     await listDataSellDoge();
     await listDataSellAda();
     await listDataSellXrp();
-}, 10000);
+}, 20000);
 
 
 setInterval(async () => {
@@ -491,4 +491,4 @@ setInterval(async () => {
     await listDataDoge();
     await listDataAda();
     await listDataXrp();
-}, 10000);
+}, 20000);

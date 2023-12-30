@@ -39,8 +39,8 @@ const obtenerYProcesarJSON = async () => {
         document.getElementById('arbitrage').innerText = ultimoElemento.Arbitraje;
         document.getElementById('date').innerText = ultimoElemento['Fecha de Creación'];
 
-        console.log('Datos del último ID procesado:');
-        console.log(ultimoElemento);
+        // console.log('Datos del último ID procesado:');
+        // console.log(ultimoElemento);
       }
     } else {
       console.log('No hay datos en el JSON.');
