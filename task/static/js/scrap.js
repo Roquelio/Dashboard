@@ -467,28 +467,31 @@ const listDataSellXrp = async () => {
 };
 
 setInterval(async () => {
-    // Llamada directa a listDataSell sin limpiar la tabla
     listDataSellUsdt();
-    listDataSellBtc();
-    listDataSellEth();
-    listDataSellBnb();
-    listDataSellDai();
-    listDataSellFdusd();
-    listDataSellDoge();
-    listDataSellAda();
-    listDataSellXrp();
-}, 15000);
-
-
-setInterval(async () => {
-    // Llamada directa a listData sin limpiar la tabla
     listDataUsdt();
+
+    listDataSellBtc();
     listDataBtc();
+
+    listDataSellEth();
     listDataEth();
+
+    listDataSellBnb();
     listDataBnb();
+
+    listDataSellDai();
     listDataDai();
+
+    listDataSellFdusd();
     listDataFdusd();
+
+    listDataSellDoge();
     listDataDoge();
+
+    listDataSellAda();
     listDataAda();
+
+    listDataSellXrp();
     listDataXrp();
-}, 15000);
+
+}, 5000);
