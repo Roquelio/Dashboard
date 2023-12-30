@@ -466,11 +466,8 @@ const listDataSellXrp = async () => {
     }
 };
 
-const clearTable = () => {
-    $('table td').empty();
-};
-
-const fetchDataAndPopulateTable = async () => {
+setInterval(async () => {
+    // Llamada directa a listDataSell sin limpiar la tabla
     listDataSellUsdt();
     listDataSellBtc();
     listDataSellEth();
@@ -480,7 +477,11 @@ const fetchDataAndPopulateTable = async () => {
     listDataSellDoge();
     listDataSellAda();
     listDataSellXrp();
-    //-------------------
+}, 15000);
+
+
+setInterval(async () => {
+    // Llamada directa a listData sin limpiar la tabla
     listDataUsdt();
     listDataBtc();
     listDataEth();
@@ -490,9 +491,4 @@ const fetchDataAndPopulateTable = async () => {
     listDataDoge();
     listDataAda();
     listDataXrp();
-};
-
-setInterval(async () => {
-    clearTable();
-    await fetchDataAndPopulateTable();
-}, 20000);
+}, 15000);
