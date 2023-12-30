@@ -466,29 +466,33 @@ const listDataSellXrp = async () => {
     }
 };
 
-setInterval(async () => {
-    // Llamada directa a listDataSell sin limpiar la tabla
-     listDataSellUsdt();
-     listDataSellBtc();
-     listDataSellEth();
-     listDataSellBnb();
-     listDataSellDai();
-     listDataSellFdusd();
-     listDataSellDoge();
-     listDataSellAda();
-     listDataSellXrp();
-}, 20000);
+const clearTable = () => {
+    $('table td').empty();
+};
 
+const fetchDataAndPopulateTable = async () => {
+    listDataSellUsdt();
+    listDataSellBtc();
+    listDataSellEth();
+    listDataSellBnb();
+    listDataSellDai();
+    listDataSellFdusd();
+    listDataSellDoge();
+    listDataSellAda();
+    listDataSellXrp();
+    //-------------------
+    listDataUsdt();
+    listDataBtc();
+    listDataEth();
+    listDataBnb();
+    listDataDai();
+    listDataFdusd();
+    listDataDoge();
+    listDataAda();
+    listDataXrp();
+};
 
 setInterval(async () => {
-    // Llamada directa a listData sin limpiar la tabla
-     listDataUsdt();
-     listDataBtc();
-     listDataEth();
-     listDataBnb();
-     listDataDai();
-     listDataFdusd();
-     listDataDoge();
-     listDataAda();
-     listDataXrp();
+    clearTable();
+    await fetchDataAndPopulateTable();
 }, 20000);
