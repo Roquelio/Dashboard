@@ -10,10 +10,11 @@ const listDataUsdt = async () => {
             usdtCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#usdt-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -36,10 +37,11 @@ const listDataBtc = async () => {
             btcCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#btc-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -62,10 +64,11 @@ const listDataEth = async () => {
             ethCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#eth-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -88,10 +91,11 @@ const listDataBnb = async () => {
             bnbCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#bnb-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -114,10 +118,11 @@ const listDataDai = async () => {
             daiCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#dai-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -140,10 +145,11 @@ const listDataFdusd = async () => {
             fdusdCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#fdusd-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -166,10 +172,11 @@ const listDataDoge = async () => {
             dogeCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#doge-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -192,10 +199,11 @@ const listDataAda = async () => {
             adaCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#ada-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -218,10 +226,11 @@ const listDataXrp = async () => {
             xrpCell.text(ad.TradeType === 'buy' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#xrp-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -244,10 +253,11 @@ const listDataSellUsdt = async () => {
             usdtCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#susdt-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -270,10 +280,11 @@ const listDataSellBtc = async () => {
             btcCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#sbtc-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -296,10 +307,11 @@ const listDataSellEth = async () => {
             ethCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#seth-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -322,10 +334,11 @@ const listDataSellBnb = async () => {
             bnbCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#sbnb-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -348,10 +361,11 @@ const listDataSellDai = async () => {
             daiCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#sdai-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -374,10 +388,11 @@ const listDataSellFdusd = async () => {
             fdusdCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#sfdusd-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -400,10 +415,11 @@ const listDataSellDoge = async () => {
             dogeCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#sdoge-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -426,10 +442,11 @@ const listDataSellAda = async () => {
             adaCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#sada-${index + 1}`);
             infoCell.text(formattedInfo);
@@ -452,10 +469,11 @@ const listDataSellXrp = async () => {
             xrpCell.text(ad.TradeType === 'sell' ? 'X' : '-');
 
             const formattedInfo = `
-                    ${ad.NickName} |
-                    ${ad.Price} | ${ad.TradableQuantity} |
-                    ${ad.minSingleTransAmount} | ${ad.dynamicMaxSingleTransAmount}
-                `;
+                ${ad.NickName} | 
+                Precio: ${ad.Price}
+                Cantidad: ${ad.TradableQuantity}
+                Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+            `;
 
             const infoCell = $(`#sxrp-${index + 1}`);
             infoCell.text(formattedInfo);
