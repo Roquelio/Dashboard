@@ -305,5 +305,23 @@ async function fetchDataAndDisplay() {
     }
 }
 
-fetchDataAndDisplay();
-setInterval(fetchDataAndDisplay, 60000);
+// Agregar una verificación antes de realizar solicitudes
+async function fetchDataAndDisplayIfInSpecificRoute() {
+    // Obtener la ruta actual del navegador
+    const currentPath = window.location.pathname;
+
+    // Verificar si estás en la ruta específica donde deseas realizar solicitudes
+    if (currentPath === '/dash/') {
+        await fetchDataAndDisplay();
+    } else {
+        // Detener el intervalo si no estás en la ruta específica
+        stopInterval();
+    }
+}
+
+// Llamar a fetchDataAndDisplayIfInSpecificRoute inicialmente
+fetchDataAndDisplayIfInSpecificRoute();
+
+// Agregar un evento para verificar la ruta antes de realizar solicitudes
+window.addEventListener('hashchange', fetchDataAndDisplayIfInSpecificRoute);
+

@@ -465,8 +465,8 @@ const listDataSellXrp = async () => {
         console.error(ex);
     }
 };
-
-setInterval(async () => {
+// Función que realiza las solicitudes
+async function fetchData() {
     listDataSellUsdt();
     listDataUsdt();
 
@@ -493,5 +493,35 @@ setInterval(async () => {
 
     listDataSellXrp();
     listDataXrp();
+}
 
-}, 5000);
+// Verificar la ruta antes de realizar solicitudes
+function fetchDataIfInSpecificRoute() {
+    // Obtener la ruta actual del navegador
+    const currentPath = window.location.pathname;
+
+    // Verificar si estás en la ruta específica donde deseas realizar solicitudes
+    if (currentPath === '/tables/') {
+        fetchData();
+    } else {
+        // Detener el intervalo si no estás en la ruta específica
+        stopInterval();
+    }
+}
+
+// Llamar a fetchDataIfInSpecificRoute inicialmente
+fetchDataIfInSpecificRoute();
+
+// Agregar un evento para verificar la ruta antes de realizar solicitudes
+window.addEventListener('hashchange', fetchDataIfInSpecificRoute);
+
+// Detener el intervalo cuando se cierra la página
+window.addEventListener('beforeunload', stopInterval);
+
+// Intervalo para realizar las solicitudes
+const intervalId = setInterval(fetchDataIfInSpecificRoute, 5000);
+
+// Función para detener el intervalo
+function stopInterval() {
+    clearInterval(intervalId);
+}

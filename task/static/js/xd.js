@@ -55,3 +55,13 @@ setInterval(obtenerYProcesarJSON, 5000);
 
 // También puedes ejecutar la función una vez inmediatamente para obtener los datos al cargar la página
 obtenerYProcesarJSON();
+
+// Agregar evento para detener las solicitudes al cerrar la página
+window.addEventListener('beforeunload', function() {
+  clearInterval(intervalId);
+});
+
+// Agregar evento para detener las solicitudes al cambiar de ruta (SPA)
+window.addEventListener('hashchange', function() {
+  clearInterval(intervalId);
+});
