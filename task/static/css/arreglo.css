@@ -11,8 +11,7 @@ body {
   
 .scrollable-div {
   font-size: 10px !important;
-  width: 100%; /* Establece el ancho que desees */
-  height: 450px; /* Establece la altura que desees */
+  height: 350px; /* Establece la altura que desees */
   overflow: auto; /* Esta propiedad activa el scroll cuando el contenido es más grande que las dimensiones del contenedor */
 }
   
