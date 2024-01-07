@@ -120,8 +120,6 @@ async function fetchDataAndDisplay() {
         const vitaPrices = getPriceValues(dataVita);
         const orionPrices = getPriceValues(dataOrion);
         const binancePrices = getPriceValues(dataBinance);
-        console.log(dataBinance)
-        console.log(binancePrices)
         const cmPrice = cmPrices.ppc;
         const budaPrice = budaPrices.ppc;
         const vitaPrice = vitaPrices.ppc;
