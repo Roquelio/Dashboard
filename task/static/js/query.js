@@ -29,52 +29,73 @@ function getSourceName(value, ...prices) {
 
 
 function getPriceValues(data) {
-    return {
-        ppc: parseFloat(data.message.ppc.split(":")[1].trim()),
-        ppv: parseFloat(data.message.ppv.split(":")[1].trim())
-    };
+    const sources = ['cm', 'buda', 'vita', 'orion', 'otc', 'binance'];
+
+    for (const source of sources) {
+        if (data[source] && data[source].message) {
+            const ppcValue = data[source].message.ppc;
+            const ppvValue = data[source].message.ppv;
+
+            if (ppcValue && ppvValue) {
+                return {
+                    ppc: parseFloat(ppcValue.split(":")[1].trim()),
+                    ppv: parseFloat(ppvValue.split(":")[1].trim())
+                };
+            }
+        }
+    }
+
+    // Si no se encuentra la información esperada, puedes manejarlo según tus necesidades.
+    console.error('No se encontraron valores de precios en las fuentes especificadas.');
+    return null;
 }
+
 
 
 async function fetchDataAndDisplay() {
     try {
         // CriptoMarkert
-        const dataCmResponse = await fetch("https://test-gliv.onrender.com/getDataCm");
+        const dataCmResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
         const dataCm = await dataCmResponse.json();
-        document.querySelector("#data-cm").innerHTML = `${dataCm.message.ppc} <br /> ${dataCm.message.ppv}`;
+        document.querySelector("#data-cm").innerHTML = `${dataCm.cm.message.ppc} <br /> ${dataCm.cm.message.ppv}`;
 
         // Buda
-        const dataBudaResponse = await fetch("https://test-gliv.onrender.com/getDataBuda");
+        const dataBudaResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
         const dataBuda = await dataBudaResponse.json();
-        document.querySelector("#data_buda").innerHTML = `${dataBuda.message.ppc} <br /> ${dataBuda.message.ppv}`;
+        document.querySelector("#data_buda").innerHTML = `${dataBuda.buda.message.ppc} <br /> ${dataBuda.buda.message.ppv}`;
 
         // Vita
-        const dataVitaResponse = await fetch("https://test-gliv.onrender.com/getDataVita");
+        const dataVitaResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
         const dataVita = await dataVitaResponse.json();
-        document.querySelector("#data-vita").innerHTML = `${dataVita.message.ppc} <br /> ${dataVita.message.ppv}`;
+        document.querySelector("#data-vita").innerHTML = `${dataVita.vita.message.ppc} <br /> ${dataVita.vita.message.ppv}`;
 
         // OrionX
-        const dataOrionResponse = await fetch("https://test-gliv.onrender.com/getDataOrion");
+        const dataOrionResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
         const dataOrion = await dataOrionResponse.json();
-        document.querySelector("#data_orion").innerHTML = `${dataOrion.message.ppc} <br /> ${dataOrion.message.ppv}`;
+        document.querySelector("#data_orion").innerHTML = `${dataOrion.orion.message.ppc} <br /> ${dataOrion.orion.message.ppv}`;
 
         // OTC
-        const dataOtcResponse = await fetch("https://test-gliv.onrender.com/getDataOtc");
+        const dataOtcResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
         const dataOtc = await dataOtcResponse.json();
 
         const dataOtcElement = document.querySelector("#data_otc");
-        let budaOTCPrice, orionOTCPrice, kundaiOTCPrice;
 
-        if ("message" in dataOtc) {
-            const messageType = typeof dataOtc.message;
+        let budaOTCPrice = null;
+        let orionOTCPrice = null;
+        let kundaiOTCPrice = null;
 
-            if (messageType === "string") {
+        if ("otc" in dataOtc) {
+            const otcMessageType = typeof dataOtc.otc.message;
+
+            if (otcMessageType === "string") {
                 // Si el mensaje es una cadena, asumimos que es un mensaje de error
-                dataOtcElement.innerHTML = dataOtc.message;
-            } else if (messageType === "object") {
-                budaOTCPrice = dataOtc.message["Buda OTC"] ?? null;
-                orionOTCPrice = dataOtc.message["Orion OTC"] ?? null;
-                kundaiOTCPrice = dataOtc.message["Kundai OTC"] ?? null;                                                             
+                dataOtcElement.innerHTML = dataOtc.otc.message;
+            } else if (otcMessageType === "object") {
+                const otcMessage = dataOtc.otc.message;
+                budaOTCPrice = otcMessage["Buda OTC"] || null;
+                orionOTCPrice = otcMessage["Orion OTC"] || null;
+                kundaiOTCPrice = otcMessage["Kundai OTC"] || null;
+
                 // Si el mensaje es un objeto, asumimos que es un mensaje exitoso
                 dataOtcElement.innerHTML = `
                     Buda OTC: ${budaOTCPrice || 'N/A'} <br />
@@ -87,10 +108,11 @@ async function fetchDataAndDisplay() {
             dataOtcElement.innerHTML = "Error: No se pudo obtener la respuesta del servidor.";
         }
 
+
         // Binance
-        const dataBinanceResponse = await fetch("https://test-gliv.onrender.com/getDataBinance");
+        const dataBinanceResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
         const dataBinance = await dataBinanceResponse.json();
-        document.querySelector("#data_binance").innerHTML = `${dataBinance.message.ppc} <br /> ${dataBinance.message.ppv}`;
+        document.querySelector("#data_binance").innerHTML = `${dataBinance.binance.message.ppc} <br /> ${dataBinance.binance.message.ppv}`;
 
         //Mejor Precio
         const cmPrices = getPriceValues(dataCm);
@@ -98,6 +120,8 @@ async function fetchDataAndDisplay() {
         const vitaPrices = getPriceValues(dataVita);
         const orionPrices = getPriceValues(dataOrion);
         const binancePrices = getPriceValues(dataBinance);
+        console.log(dataBinance)
+        console.log(binancePrices)
         const cmPrice = cmPrices.ppc;
         const budaPrice = budaPrices.ppc;
         const vitaPrice = vitaPrices.ppc;
@@ -160,20 +184,20 @@ async function fetchDataAndDisplay() {
             // Generar los labels antes de crear el gráfico
             const labels = generateLabels();
 
-            inicioCMppc.push(extractValue(dataCm.message.ppc));
-            inicioCMppv.push(extractValue(dataCm.message.ppv));
+            inicioCMppc.push(extractValue(dataCm.cm.message.ppc));
+            inicioCMppv.push(extractValue(dataCm.cm.message.ppv));
 
-            iniciobudappc.push(extractValue(dataBuda.message.ppc));
-            iniciobudappv.push(extractValue(dataBuda.message.ppv));
+            iniciobudappc.push(extractValue(dataBuda.buda.message.ppc));
+            iniciobudappv.push(extractValue(dataBuda.buda.message.ppv));
 
-            iniciovitappc.push(extractValue(dataVita.message.ppc));
-            iniciovitappv.push(extractValue(dataVita.message.ppv));
+            iniciovitappc.push(extractValue(dataVita.vita.message.ppc));
+            iniciovitappv.push(extractValue(dataVita.vita.message.ppv));
 
-            inicioorionppc.push(extractValue(dataOrion.message.ppc));
-            iniciorionppv.push(extractValue(dataOrion.message.ppv));
+            inicioorionppc.push(extractValue(dataOrion.orion.message.ppc));
+            iniciorionppv.push(extractValue(dataOrion.orion.message.ppv));
 
-            iniciobinanceppc.push(extractValue(dataBinance.message.ppc));
-            inicibinanceppv.push(extractValue(dataBinance.message.ppv));
+            iniciobinanceppc.push(extractValue(dataBinance.binance.message.ppc));
+            inicibinanceppv.push(extractValue(dataBinance.binance.message.ppv));
 
             myAreaChart = new Chart(ctx, {
                 type: "line",

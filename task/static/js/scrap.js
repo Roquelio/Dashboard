@@ -1,6 +1,6 @@
 const listData = async () => {
     try {
-        const response = await fetch("http://localhost:5000/");
+        const response = await fetch("https://test-gliv.onrender.com/ver_datos");
         const data = await response.json();
 
         ['usdt', 'btc', 'eth', 'bnb', 'dai', 'fdusd', 'doge', 'ada', 'xrp'].forEach((symbol) => {
@@ -33,10 +33,10 @@ const updateTradeTypeData = (data, symbol, tradeType, index) => {
     cell.text(ad.TradeType === tradeType ? 'X' : '-');
 
     const formattedInfo = `
-        ${ad.NickName} | 
-        Precio: ${ad.Price}
-        Cantidad: ${ad.TradableQuantity}
-        Limite: ${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+    ${ad.NickName} \n
+    Precio: ${ad.Price} \n
+    Cantidad: ${ad.TradableQuantity} \n
+    Limite:${ad.minSingleTransAmount}-${ad.dynamicMaxSingleTransAmount}
     `;
     
     const infoCell = $(`#${tradeType}-${symbol.toLowerCase()}-${index + 1}`);

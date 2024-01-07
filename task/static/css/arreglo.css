@@ -6,11 +6,19 @@ body {
 
 .th-tables {
   text-align: center ;
-  width: 10%;
+  width: 11%;
 }
-  
+
+
+.td-tables {
+  white-space: pre-wrap;
+  line-height: 0.8; /* Ajusta este valor según tus preferencias */
+}
+
+
+
 .scrollable-div {
-  font-size: 10px !important;
+  font-size: 9px !important;
   height: 350px; /* Establece la altura que desees */
   overflow: auto; /* Esta propiedad activa el scroll cuando el contenido es más grande que las dimensiones del contenedor */
 }
