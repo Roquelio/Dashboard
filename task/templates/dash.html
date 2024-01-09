@@ -62,26 +62,23 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard Principal</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Promedios de mercado</li>
-                        </ol>
+                        <h2 class="mt-4">Arbitrium</h2>
                         <div class="row">
                             <div class="col">
                               <h4 class="mt-1">Investing</h4>
-                              <ol class="breadcrumb mb-4">
+                              <ol class="breadcrumb mb-1">
                                 <p id="inves" class="breadcrumb-item active">Cargando datos...</p>
                               </ol>
                             </div>
                             <div class="col">
                               <h4 class="mt-1">Bolchile</h4>
-                              <ol class="breadcrumb mb-4">
+                              <ol class="breadcrumb mb-1">
                                 <p id="bol" class="breadcrumb-item active">Cargando datos...</p>
                               </ol>
                             </div>
                             <div class="col">
                               <h4 class="mt-1">Yahoo Finance</h4>
-                              <ol class="breadcrumb mb-4">
+                              <ol class="breadcrumb mb-1">
                                 <p id="yahoo" class="breadcrumb-item active">Cargando datos...</p>
                               </ol>
                             </div>
@@ -95,7 +92,7 @@
                               const bolchile = data.message.Bolchile;
                               const yahoo = data.message.Yahoo;
                           
-                              document.getElementById('inves').innerText = investing;
+                              document.getElementById('inves').innerText = investing + 3;
                               document.getElementById('bol').innerText = bolchile;
                               document.getElementById('yahoo').innerText = yahoo;
                             }
@@ -104,7 +101,7 @@
                           </script>
                         <div class="row">
                             <div class="col-xl-6 col-md-6">
-                                <div class="card bg-black text-white mb-4">
+                                <div class="card bg-black text-white mb-2">
                                     <div class="card-body fuente-precios">Mejores Precios</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <p class="small text-white stretched-link fuente-precios" id="best_price">Cargando datos...</p>
@@ -112,7 +109,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
+                                <div class="card bg-primary text-white mb-2">
                                     <div class="card-body fuente-precios">Cryptomarket</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <p class="small text-white stretched-link fuente-precios" id="data-cm">Cargando datos...</p>
@@ -120,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-dark2 text-white mb-4">
+                                <div class="card bg-dark2 text-white mb-2">
                                     <div class="card-body fuente-precios">Buda</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <p class="small text-white stretched-link fuente-precios" id="data_buda">Cargando datos...</p>
@@ -129,7 +126,7 @@
                                 
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
+                                <div class="card bg-success text-white mb-2">
                                     <div class="card-body fuente-precios">Vita Wallet</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <p class="small text-white stretched-link fuente-precios" id="data-vita">Cargando datos...</p>
@@ -137,7 +134,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-info text-white mb-4">
+                                <div class="card bg-info text-white mb-2">
                                     <div class="card-body fuente-precios">Orionx</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <p class="small text-white stretched-link fuente-precios" id="data_orion">Cargando datos...</p>
@@ -145,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
+                                <div class="card bg-danger text-white mb-2">
                                     <div class="card-body fuente-precios">OTC Data</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <p class="small text-white stretched-link fuente-precios" id="data_otc">Cargando datos...</p>
@@ -153,7 +150,7 @@
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
+                                <div class="card bg-warning text-white mb-2">
                                     <div class="card-body fuente-precios">Binance</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <p class="small text-white stretched-link fuente-precios" id="data_binance">Cargando datos...</p>

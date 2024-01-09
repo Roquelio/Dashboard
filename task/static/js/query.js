@@ -1,19 +1,33 @@
-    let inicioCMppc = [];
-    let inicioCMppv = [];
-    let iniciobudappc = [];
-    let iniciobudappv = [];
-    let iniciovitappc = [];
-    let iniciovitappv = [];
-    let inicioorionppc = [];
-    let iniciorionppv = [];
-    let iniciootcppc = [];
-    let iniciobinanceppc = [];
-    let inicibinanceppv = [];
+let limite = 50;
+
+let inicioCMppc = [];
+let inicioCMppv = [];
+let iniciobudappc = [];
+let iniciobudappv = [];
+let iniciovitappc = [];
+let iniciovitappv = [];
+let inicioorionppc = [];
+let iniciorionppv = [];
+let iniciootcppc = [];
+let iniciobinanceppc = [];
+let inicibinanceppv = [];
 
 function extractCurrencyPair(message) {
     const regex = /\[([^\]]+)\]/;
     const matches = regex.exec(message);
     return matches && matches[1] ? matches[1] : 'N/A';
+}
+
+function agregarDatosYReiniciar(arreglo, nuevoDato, limite) {
+    arreglo.push(nuevoDato);
+
+    // Verificar si el arreglo ha alcanzado el límite
+    if (arreglo.length >= limite) {
+        // Reiniciar el arreglo asignándole uno nuevo vacío
+        arreglo = [];
+    }
+
+    return arreglo;
 }
 
 function getSourceName(value, ...prices) {
@@ -31,13 +45,15 @@ function getSourceName(value, ...prices) {
 function getPriceValues(data) {
     const sources = ['cm', 'buda', 'vita', 'orion', 'otc', 'binance'];
 
+    const prices = {};
+
     for (const source of sources) {
         if (data[source] && data[source].message) {
             const ppcValue = data[source].message.ppc;
             const ppvValue = data[source].message.ppv;
 
             if (ppcValue && ppvValue) {
-                return {
+                prices[source] = {
                     ppc: parseFloat(ppcValue.split(":")[1].trim()),
                     ppv: parseFloat(ppvValue.split(":")[1].trim())
                 };
@@ -46,40 +62,50 @@ function getPriceValues(data) {
     }
 
     // Si no se encuentra la información esperada, puedes manejarlo según tus necesidades.
-    console.error('No se encontraron valores de precios en las fuentes especificadas.');
-    return null;
+    if (Object.keys(prices).length === 0) {
+        console.error('No se encontraron valores de precios en las fuentes especificadas.');
+        return null;
+    }
+    return prices;
 }
 
-
+let llamadaCount = 0
 
 async function fetchDataAndDisplay() {
+    llamadaCount++
+    console.log("llamada",llamadaCount)
     try {
-        // CriptoMarkert
-        const dataCmResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
-        const dataCm = await dataCmResponse.json();
+        // Definir las URLs de las API
+        const apiUrls = [
+            "https://test-gliv.onrender.com/ver_datos_dash",  // CriptoMarkert
+            "https://test-gliv.onrender.com/ver_datos_dash",  // Buda
+            "https://test-gliv.onrender.com/ver_datos_dash",  // Vita
+            "https://test-gliv.onrender.com/ver_datos_dash",  // OrionX
+            "https://test-gliv.onrender.com/ver_datos_dash",  // Binance
+            "https://test-gliv.onrender.com/ver_datos_dash"   // OTC
+        ];
+
+        // Obtener los datos de todas las APIs al mismo tiempo
+        const responses = await Promise.all(apiUrls.map(url => fetch(url)));
+        const data = await Promise.all(responses.map(response => response.json()));
+
+        // Asignar los datos a variables
+        const [dataCm, dataBuda, dataVita, dataOrion, dataBinance, dataOtc] = data;
+
+        // Mostrar datos de CriptoMarkert
         document.querySelector("#data-cm").innerHTML = `${dataCm.cm.message.ppc} <br /> ${dataCm.cm.message.ppv}`;
 
-        // Buda
-        const dataBudaResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
-        const dataBuda = await dataBudaResponse.json();
+        // Mostrar datos de Buda
         document.querySelector("#data_buda").innerHTML = `${dataBuda.buda.message.ppc} <br /> ${dataBuda.buda.message.ppv}`;
 
-        // Vita
-        const dataVitaResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
-        const dataVita = await dataVitaResponse.json();
+        // Mostrar datos de Vita
         document.querySelector("#data-vita").innerHTML = `${dataVita.vita.message.ppc} <br /> ${dataVita.vita.message.ppv}`;
 
-        // OrionX
-        const dataOrionResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
-        const dataOrion = await dataOrionResponse.json();
+        // Mostrar datos de OrionX
         document.querySelector("#data_orion").innerHTML = `${dataOrion.orion.message.ppc} <br /> ${dataOrion.orion.message.ppv}`;
 
-        // OTC
-        const dataOtcResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
-        const dataOtc = await dataOtcResponse.json();
-
+        // Mostrar datos de OTC
         const dataOtcElement = document.querySelector("#data_otc");
-
         let budaOTCPrice = null;
         let orionOTCPrice = null;
         let kundaiOTCPrice = null;
@@ -108,10 +134,7 @@ async function fetchDataAndDisplay() {
             dataOtcElement.innerHTML = "Error: No se pudo obtener la respuesta del servidor.";
         }
 
-
-        // Binance
-        const dataBinanceResponse = await fetch("https://test-gliv.onrender.com/ver_datos_dash");
-        const dataBinance = await dataBinanceResponse.json();
+        // Mostrar datos de Binance
         document.querySelector("#data_binance").innerHTML = `${dataBinance.binance.message.ppc} <br /> ${dataBinance.binance.message.ppv}`;
 
         //Mejor Precio
@@ -120,16 +143,16 @@ async function fetchDataAndDisplay() {
         const vitaPrices = getPriceValues(dataVita);
         const orionPrices = getPriceValues(dataOrion);
         const binancePrices = getPriceValues(dataBinance);
-        const cmPrice = cmPrices.ppc;
-        const budaPrice = budaPrices.ppc;
-        const vitaPrice = vitaPrices.ppc;
-        const orionPrice = orionPrices.ppc;
-        const binancePrice = binancePrices.ppc;
-        const cmPriceV = cmPrices.ppv;
-        const budaPriceV = budaPrices.ppv;
-        const vitaPriceV = vitaPrices.ppv;
-        const orionPriceV = orionPrices.ppv;
-        const binancePriceV = binancePrices.ppv;
+        const cmPrice = cmPrices.cm.ppc;
+        const budaPrice = budaPrices.buda.ppc;
+        const vitaPrice = vitaPrices.vita.ppc;
+        const orionPrice = orionPrices.orion.ppc;
+        const binancePrice = binancePrices.binance.ppc;
+        const cmPriceV = cmPrices.cm.ppv;
+        const budaPriceV = budaPrices.buda.ppv;
+        const vitaPriceV = vitaPrices.vita.ppv;
+        const orionPriceV = orionPrices.orion.ppv;
+        const binancePriceV = binancePrices.binance.ppv;
 
         const currentChileTime = new Date().toLocaleString("en-US", { timeZone: "America/Santiago" });
         const currentHour = new Date(currentChileTime).getHours();
@@ -144,10 +167,7 @@ async function fetchDataAndDisplay() {
             minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice);
         }
 
-
-
         const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
-
         const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
         const sourceMaxPrice = getSourceName(maxPrice, cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
@@ -182,20 +202,20 @@ async function fetchDataAndDisplay() {
             // Generar los labels antes de crear el gráfico
             const labels = generateLabels();
 
-            inicioCMppc.push(extractValue(dataCm.cm.message.ppc));
-            inicioCMppv.push(extractValue(dataCm.cm.message.ppv));
+            inicioCMppc = agregarDatosYReiniciar(inicioCMppc, extractValue(dataCm.cm.message.ppc), limite);
+            inicioCMppv = agregarDatosYReiniciar(inicioCMppv, extractValue(dataCm.cm.message.ppv), limite);
 
-            iniciobudappc.push(extractValue(dataBuda.buda.message.ppc));
-            iniciobudappv.push(extractValue(dataBuda.buda.message.ppv));
+            iniciobudappc = agregarDatosYReiniciar(iniciobudappc, extractValue(dataBuda.buda.message.ppc), limite);
+            iniciobudappv = agregarDatosYReiniciar(iniciobudappv, extractValue(dataBuda.buda.message.ppv), limite);
 
-            iniciovitappc.push(extractValue(dataVita.vita.message.ppc));
-            iniciovitappv.push(extractValue(dataVita.vita.message.ppv));
+            iniciovitappc = agregarDatosYReiniciar(iniciovitappc, extractValue(dataVita.vita.message.ppc), limite);
+            iniciovitappv = agregarDatosYReiniciar(iniciovitappv, extractValue(dataVita.vita.message.ppv), limite);
 
-            inicioorionppc.push(extractValue(dataOrion.orion.message.ppc));
-            iniciorionppv.push(extractValue(dataOrion.orion.message.ppv));
+            inicioorionppc = agregarDatosYReiniciar(inicioorionppc, extractValue(dataOrion.orion.message.ppc), limite);
+            iniciorionppv = agregarDatosYReiniciar(iniciorionppv, extractValue(dataOrion.orion.message.ppv), limite);
 
-            iniciobinanceppc.push(extractValue(dataBinance.binance.message.ppc));
-            inicibinanceppv.push(extractValue(dataBinance.binance.message.ppv));
+            iniciobinanceppc = agregarDatosYReiniciar(iniciobinanceppc, extractValue(dataBinance.binance.message.ppc), limite);
+            inicibinanceppv = agregarDatosYReiniciar(inicibinanceppv, extractValue(dataBinance.binance.message.ppv), limite);
 
             myAreaChart = new Chart(ctx, {
                 type: "line",
@@ -301,8 +321,8 @@ async function fetchDataAndDisplay() {
         }
 
         function updateChart(dataCm, dataBuda, dataVita, dataOrion, dataBinance) {
-            myAreaChart.data.datasets[0].data = [extractValue(dataCm.message.ppc), extractValue(dataBuda.message.ppc), extractValue(dataVita.message.ppc), extractValue(dataOrion.message.ppc), extractValue(dataBinance.message.ppc)];
-            myAreaChart.data.datasets[1].data = [extractValue(dataCm.message.ppv), extractValue(dataBuda.message.ppv), extractValue(dataVita.message.ppv), extractValue(dataOrion.message.ppv), extractValue(dataBinance.message.ppv)];
+            myAreaChart.data.datasets[0].data = [extractValue(dataCm.cm.message.ppc), extractValue(dataBuda.buda.message.ppc), extractValue(dataVita.vita.message.ppc), extractValue(dataOrion.orion.message.ppc), extractValue(dataBinance.binance.message.ppc)];
+            myAreaChart.data.datasets[1].data = [extractValue(dataCm.cm.message.ppv), extractValue(dataBuda.buda.message.ppv), extractValue(dataVita.vita.message.ppv), extractValue(dataOrion.orion.message.ppv), extractValue(dataBinance.binance.message.ppv)];
             myAreaChart.update();
         }
 
@@ -320,21 +340,26 @@ async function fetchDataAndDisplay() {
             } catch (error) {
                 console.error("Error fetching or updating data:", error);
             }
-        }, 60000);
+        }, 50000);
 
     } catch (error) {
         console.error("Error fetching or displaying data:", error);
     }
 }
 
-// Agregar una verificación antes de realizar solicitudes
 async function fetchDataAndDisplayIfInSpecificRoute() {
     // Obtener la ruta actual del navegador
     const currentPath = window.location.pathname;
 
     // Verificar si estás en la ruta específica donde deseas realizar solicitudes
     if (currentPath === '/dash/') {
+        // Llamar a fetchDataAndDisplay inicialmente
         await fetchDataAndDisplay();
+
+        // Establecer un intervalo para ejecutar fetchDataAndDisplay cada 60 segundos
+        intervalId = setInterval(async () => {
+            await fetchDataAndDisplay();
+        }, 60000); // 60000 milisegundos = 60 segundos
     } else {
         // Detener el intervalo si no estás en la ruta específica
         stopInterval();
