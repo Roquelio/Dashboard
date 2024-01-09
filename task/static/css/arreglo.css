@@ -15,16 +15,13 @@ padding: 3px !important
 white-space: pre-wrap;
 line-height: 0.7; /* Ajusta este valor segÃºn tus preferencias */
 text-align: left;
-padding-left: 3px !important;
-padding-top: 1px !important;
-padding-bottom: 1px !important;
-padding-right: 1px !important;
+padding: 1px !important;
 }
 
 
 
 .scrollable-div {
-font-size: 9px !important;
+font-size: 8px !important;
 height: 350px; /* Establece la altura que desees */
 overflow: auto; /* Esta propiedad activa el scroll cuando el contenido es mÃ¡s grande que las dimensiones del contenedor */
 }
