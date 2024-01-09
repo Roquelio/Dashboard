@@ -36,7 +36,7 @@ const updateTradeTypeData = (data, symbol, tradeType, index) => {
     ${ad.NickName} \n
     Precio: ${ad.Price} \n
     Cantidad: ${ad.TradableQuantity} \n
-    Limite:${ad.minSingleTransAmount} - ${ad.dynamicMaxSingleTransAmount}
+    Limite:${ad.minSingleTransAmount}-${ad.dynamicMaxSingleTransAmount}
     `;
     
     const infoCell = $(`#${tradeType}-${symbol.toLowerCase()}-${index + 1}`);

@@ -1,13 +1,13 @@
 body {
   font-family: 'Kanit', sans-serif !important;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 
 .th-tables {
 text-align: center ;
 width: 11%;
-padding: 2px !important
+padding: 3px !important
 }
 
 
@@ -15,13 +15,13 @@ padding: 2px !important
 white-space: pre-wrap;
 line-height: 0.7; /* Ajusta este valor segÃºn tus preferencias */
 text-align: left;
-padding: 1px !important;
+padding: 0px !important;
 }
 
 
 
 .scrollable-div {
-font-size: 8px !important;
+font-size: 9px !important;
 height: 350px; /* Establece la altura que desees */
 overflow: auto; /* Esta propiedad activa el scroll cuando el contenido es mÃ¡s grande que las dimensiones del contenedor */
 }

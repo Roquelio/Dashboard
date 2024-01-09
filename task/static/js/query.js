@@ -69,11 +69,8 @@ function getPriceValues(data) {
     return prices;
 }
 
-let llamadaCount = 0
 
 async function fetchDataAndDisplay() {
-    llamadaCount++
-    console.log("llamada",llamadaCount)
     try {
         // Definir las URLs de las API
         const apiUrls = [
