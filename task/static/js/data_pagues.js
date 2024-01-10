@@ -24,7 +24,8 @@ async function fetchData2() {
 
 // Llamar a fetchData al cargar la página
 fetchData();
+fetchData2();
 
-setInterval(fetchData, 10000);
+setInterval(fetchData, 5000);
 
-  setInterval(fetchData2, 5000);
+  setInterval(fetchData2, 10000);
