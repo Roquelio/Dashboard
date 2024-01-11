@@ -26,6 +26,6 @@ async function fetchData2() {
 fetchData();
 fetchData2();
 
-setInterval(fetchData, 5000);
+setInterval(fetchData, 2000);
 
   setInterval(fetchData2, 10000);

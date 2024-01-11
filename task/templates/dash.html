@@ -143,8 +143,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
+                            <div class="col-xl-6 ">
+                                <div class="card mb-2 tall">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area me-1"></i>
                                         Grafica de precios
@@ -152,8 +152,8 @@
                                     <div class="card-body"><canvas id="nelson_grafico" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4" >
+                            <div class="col-xl-6 ">
+                                <div class="card mb-2 tall" >
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
                                         Seccion de alertas
@@ -174,7 +174,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-footer text-muted">
+                                    <div class="card-footer text-muted tam">
                                         <p><strong>Fecha:</strong> <span id="date"></span></p>
                                     </div>
                                 </div>
@@ -220,16 +220,17 @@
                                         // Obtener y mostrar datos
                                         await listData();
 
-                                        // Inicializar DataTable
+                                        // Inicializar DataTable con orden descendente por ID
                                         dataTable = $('#datatable_data').DataTable({
                                             "language": {
                                                 "url": "https://cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-                                            }
+                                            },
+                                            "order": [[0, 'desc']] // Ordenar por la primera columna (ID) de manera descendente
                                         });
 
                                         // Marcar que la inicialización se ha completado
                                         init = true;
-                                    };
+                                    };              
 
                                     // Función para obtener datos
                                     const listData = async () => {

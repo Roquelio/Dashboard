@@ -26,7 +26,12 @@ padding: 0px !important;
 .ll {
   margin-left: 2rem !important;
 }
-
+.tall{
+  height: 320px !important;
+}
+.tam{
+  height: 48px !important;
+}
 
 
 .scrollable-div {
