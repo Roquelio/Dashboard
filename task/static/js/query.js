@@ -158,11 +158,27 @@ async function fetchDataAndDisplay() {
 
         if (currentDay >= 1 && currentDay <= 5 && currentHour > 9 && currentHour < 14) {
             // El día actual es de lunes a viernes y la hora está entre las 9 y las 14 horas
-            minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
+            minPrice = Math.min(
+                cmPrice > 0 ? cmPrice : Infinity,
+                budaPrice > 0 ? budaPrice : Infinity,
+                vitaPrice > 0 ? vitaPrice : Infinity,
+                orionPrice > 0 ? orionPrice : Infinity,
+                binancePrice > 0 ? binancePrice : Infinity,
+                budaOTCPrice > 0 ? budaOTCPrice : Infinity,
+                orionOTCPrice > 0 ? orionOTCPrice : Infinity,
+                kundaiOTCPrice > 0 ? kundaiOTCPrice : Infinity
+            );
         } else {
             // En caso contrario
-            minPrice = Math.min(cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice);
+            minPrice = Math.min(
+                cmPrice > 0 ? cmPrice : Infinity,
+                budaPrice > 0 ? budaPrice : Infinity,
+                vitaPrice > 0 ? vitaPrice : Infinity,
+                orionPrice > 0 ? orionPrice : Infinity,
+                binancePrice > 0 ? binancePrice : Infinity
+            );
         }
+        
 
         const maxPrice = Math.max(cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
         const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
