@@ -1,21 +1,6 @@
-body {
+/* body {
   font-family: 'Kanit', sans-serif !important;
   font-size: 16px;
-}
-
-
-.th-tables {
-text-align: center ;
-width: 11%;
-padding: 3px !important
-}
-
-
-.td-tables {
-white-space: pre-wrap;
-line-height: 0.7; /* Ajusta este valor segÃºn tus preferencias */
-text-align: left;
-padding: 0px !important;
 }
 
 .kk {
@@ -33,9 +18,50 @@ padding: 0px !important;
   height: 48px !important;
 }
 
+*/
+
+.th-tables {
+text-align: center ;
+font-size: 8.5px !important;
+width: 11%;
+padding: 3px !important
+}
+
+
+.td-tables {
+white-space: pre-wrap;
+text-align: left;
+padding: 0px !important;
+font-size: 8.5px !important;
+line-height: 0.7 !important;
+} 
+
+.xd{
+  font-size: 8.5px !important;
+}
+
+.p2{
+  margin-bottom: 5px !important;
+}
 
 .scrollable-div {
-font-size: 9px !important;
-height: 350px; /* Establece la altura que desees */
-overflow: auto; /* Esta propiedad activa el scroll cuando el contenido es mÃ¡s grande que las dimensiones del contenedor */
+height: 44vh; 
+overflow: auto; 
+} 
+
+.text{
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.card-body2 {
+  flex: 1 1 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  color: var(--bs-card-color);
+}
+
+.prices{
+  margin-left: 15% !important;
 }
