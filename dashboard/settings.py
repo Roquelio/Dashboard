@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://dashboard_data_user:12M7Elh8m6pS4RWJcEbSTQVJGPHWJqS3@dpg-cl9flkhm6hds73d6e8e0-a.frankfurt-postgres.render.com/dashboard_data',
+        default='postgres://data_dash_user:GDL1NLAnzQibqHRO8iAUkMdafMZiU8pW@dpg-clfr3cnjc5ks73e9tgm0-a.oregon-postgres.render.com/data_dash',
         conn_max_age=600,  # Ajusta según tus necesidades
     )
 }
