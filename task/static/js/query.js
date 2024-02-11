@@ -30,7 +30,6 @@ function agregarDatosYReiniciar(arreglo, nuevoDato, limite) {
     return arreglo;
 }
 
-
 function getSourceName(value, ...prices) {
     const index = prices.findIndex(price => price === value);
     const exchanges = ['Cryptomarket', 'Buda', 'Vita', 'Orion', 'Binance','Buda OTC', 'Orion OTC', 'Kundai OTC', ];
@@ -39,6 +38,8 @@ function getSourceName(value, ...prices) {
     
     return { exchange: exchangeName, currencyPair: currencyPair };
 }
+
+
 
 
 function getPriceValues(data) {
@@ -89,20 +90,16 @@ async function fetchDataAndDisplay() {
         const [dataCm, dataBuda, dataVita, dataOrion, dataBinance, dataOtc] = data;
 
         // Mostrar datos de CriptoMarkert
-        document.querySelector("#data-cm-ppc").innerHTML = `${dataCm.cm.message.ppc}`;
-        document.querySelector("#data-cm-ppv").innerHTML = `${dataCm.cm.message.ppv}`;
+        document.querySelector("#data-cm").innerHTML = `${dataCm.cm.message.ppc} <br /> ${dataCm.cm.message.ppv}`;
 
         // Mostrar datos de Buda
-        document.querySelector("#data-buda-ppc").innerHTML = `${dataBuda.buda.message.ppc}`;
-        document.querySelector("#data-buda-ppv").innerHTML = `${dataBuda.buda.message.ppv}`;
+        document.querySelector("#data_buda").innerHTML = `${dataBuda.buda.message.ppc} <br /> ${dataBuda.buda.message.ppv}`;
 
         // Mostrar datos de Vita
-        document.querySelector("#data-vita-ppc").innerHTML = `${dataVita.vita.message.ppc}`;
-        document.querySelector("#data-vita-ppv").innerHTML = `${dataVita.vita.message.ppv}`;
+        document.querySelector("#data-vita").innerHTML = `${dataVita.vita.message.ppc} <br /> ${dataVita.vita.message.ppv}`;
 
         // Mostrar datos de OrionX
-        document.querySelector("#data-orion-ppc").innerHTML = `${dataOrion.orion.message.ppc}`;
-        document.querySelector("#data-orion-ppv").innerHTML = `${dataOrion.orion.message.ppv}`;
+        document.querySelector("#data_orion").innerHTML = `${dataOrion.orion.message.ppc} <br /> ${dataOrion.orion.message.ppv}`;
 
         // Mostrar datos de OTC
         const dataOtcElement = document.querySelector("#data_otc");
@@ -135,8 +132,7 @@ async function fetchDataAndDisplay() {
         }
 
         // Mostrar datos de Binance
-        document.querySelector("#data-binance-ppc").innerHTML = `${dataBinance.binance.message.ppc}`;
-        document.querySelector("#data-binance-ppv").innerHTML = `${dataBinance.binance.message.ppv}`;
+        document.querySelector("#data_binance").innerHTML = `${dataBinance.binance.message.ppc} <br /> ${dataBinance.binance.message.ppv}`;
 
         //Mejor Precio
         const cmPrices = getPriceValues(dataCm);
@@ -188,33 +184,10 @@ async function fetchDataAndDisplay() {
         const sourceMinPrice = getSourceName(minPrice, cmPrice, budaPrice, vitaPrice, orionPrice, binancePrice, budaOTCPrice, orionOTCPrice, kundaiOTCPrice);
         const sourceMaxPrice = getSourceName(maxPrice, cmPriceV, budaPriceV, vitaPriceV, orionPriceV, binancePriceV);
 
-       // Obtener el nombre del exchange de sourceMinPrice
-        const minExchange = sourceMinPrice.exchange.toLowerCase();
-
-        // Obtener la ruta de la imagen correspondiente del objeto exchangeLogos
-        const minExchangeLogoUrl = exchangeLogos[minExchange];
-
-        // Asignar la ruta de la imagen al atributo src de la etiqueta img
-        document.getElementById("best_logo1").src = minExchangeLogoUrl;
-
-        // Obtener el nombre del exchange de sourceMinPrice
-        const maxExchange = sourceMaxPrice.exchange.toLowerCase();
-
-        // Obtener la ruta de la imagen correspondiente del objeto exchangeLogos
-        const maxExchangeLogoUrl = exchangeLogos[maxExchange];
-
-        // Asignar la ruta de la imagen al atributo src de la etiqueta img
-        document.getElementById("best_logo2").src = maxExchangeLogoUrl;
-  
-
-        document.getElementById("best_price1").innerHTML = minPrice;
-
-        document.getElementById("best_name1").innerHTML = sourceMinPrice.exchange;
-
-        document.getElementById("best_price2").innerHTML = maxPrice;
-
-        document.getElementById("best_name2").innerHTML = sourceMaxPrice.exchange;
-
+        document.getElementById("best_price").innerHTML = `
+        El mejor precio de compra es ${minPrice} de ${sourceMinPrice.exchange}. <br>
+        El mejor precio de venta es ${maxPrice} de ${sourceMaxPrice.exchange}.
+    `;
 
         var ctx = document.getElementById("nelson_grafico").getContext("2d");
         var myAreaChart;

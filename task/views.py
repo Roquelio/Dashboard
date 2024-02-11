@@ -64,9 +64,9 @@ def entrar(request):
             request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
             return render(request, 'login.html', {
-                'form': AuthenticationForm,
-                'error': 'Nombre de usuario o contraseña es incorrecto'
-            })
+            'form': AuthenticationForm,
+            'error' : 'Nombre de usuario o contraseña es incorrecto'
+        })
         else:
             login(request, user)
             return redirect('dash')
