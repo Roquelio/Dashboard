@@ -353,7 +353,7 @@ async function fetchDataAndDisplay() {
             } catch (error) {
                 console.error("Error fetching or updating data:", error);
             }
-        }, 50000);
+        }, 30000);
 
     } catch (error) {
         console.error("Error fetching or displaying data:", error);
@@ -372,7 +372,7 @@ async function fetchDataAndDisplayIfInSpecificRoute() {
         // Establecer un intervalo para ejecutar fetchDataAndDisplay cada 60 segundos
         intervalId = setInterval(async () => {
             await fetchDataAndDisplay();
-        }, 60000); // 60000 milisegundos = 60 segundos
+        }, 30000); // 60000 milisegundos = 60 segundos
     } else {
         // Detener el intervalo si no estás en la ruta específica
         stopInterval();
